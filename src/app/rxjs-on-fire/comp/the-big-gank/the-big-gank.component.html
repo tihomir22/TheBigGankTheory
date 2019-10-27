@@ -1,0 +1,68 @@
+<ng2-slim-loading-bar></ng2-slim-loading-bar>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <mat-form-field class="w-100">
+        <input matInput type="text" placeholder="Busqueda old school" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field class="w-100">
+        <input matInput type="text" placeholder="Busqueda reactiva" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-list role="list">
+    <div class="row">
+      <div class="col-6" *ngFor="let discovery of roverDiscoveries">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title># {{ discovery.id }}</mat-card-title>
+            <mat-card-subtitle>{{
+              discovery.earth_date | date
+            }}</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="{{ discovery.img_src }}"
+            alt="{{ discovery.id }}"
+          />
+          <mat-card-content>
+            <div class="row">
+              <div class="col-6">
+                <p>Camera info</p>
+                <mat-list role="list">
+                  <div *ngFor="let camInfo of objKeys(discovery.camera)">
+                    <strong class="mr-3">{{ camInfo + " " }}</strong
+                    >{{ discovery.camera[camInfo] }}
+                  </div>
+                </mat-list>
+              </div>
+              <div class="col-6">
+                <p>Rover info</p>
+                <mat-list role="list">
+                  <div *ngFor="let roverInfo of objKeys(discovery.rover)">
+                    <strong class="mr-3"> {{ roverInfo + " " }}</strong
+                    >{{
+                      objKeys(discovery.rover[roverInfo]).length > 0
+                        ? discovery.rover[roverInfo].length
+                        : discovery.rover[roverInfo]
+                    }}
+                  </div>
+                </mat-list>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </mat-list>
+</div>
