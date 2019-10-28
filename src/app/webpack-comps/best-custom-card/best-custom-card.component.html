@@ -1,0 +1,69 @@
+<mat-list role="list">
+  <div class="row">
+    <div
+      class="col-6"
+      *ngFor="let discovery of filterService.getLiveDiscoveries()"
+    >
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title># {{ discovery.id }}</mat-card-title>
+          <mat-card-subtitle>{{
+            discovery.earth_date | date
+          }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <img
+            mat-card-image
+            [lazyLoad]="discovery.img_src"
+            alt="{{ discovery.id }}"
+          />
+          <div class="row">
+            <div class="col-6" *ngIf="discovery.showingCamera">
+              <p>Camera info</p>
+              <mat-list role="list">
+                <div *ngFor="let camInfo of objKeys(discovery.camera)">
+                  <strong class="mr-3">{{ camInfo + " " }}</strong
+                  >{{ discovery.camera[camInfo] }}
+                </div>
+              </mat-list>
+            </div>
+            <div class="col-6" *ngIf="discovery.showingRover">
+              <p>Rover info</p>
+              <mat-list role="list">
+                <div *ngFor="let roverInfo of objKeys(discovery.rover)">
+                  <strong class="mr-3"> {{ roverInfo + " " }}</strong
+                  >{{
+                    esArray(discovery.rover[roverInfo])
+                      ? discovery.rover[roverInfo].length
+                      : discovery.rover[roverInfo]
+                  }}
+                </div>
+              </mat-list>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div class="d-flex justify-content-center">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="showMeDaWae(discovery)"
+            >
+              <mat-icon>camera</mat-icon> Show me the camera info
+            </button>
+            <button
+              mat-raised-button
+              color="accent"
+              (click)="discovery.showingRover = !discovery.showingRover"
+            >
+              <mat-icon>airplanemode_active</mat-icon> Show me the rover info
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</mat-list>
