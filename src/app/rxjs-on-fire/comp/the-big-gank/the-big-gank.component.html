@@ -1,5 +1,21 @@
 <ng2-slim-loading-bar></ng2-slim-loading-bar>
 <div class="container">
   <app-searchers></app-searchers>
-  <app-best-custom-card (cargaTerminada)="cargaTerminada()"></app-best-custom-card>
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-center">
+      <button mat-raised-button color="accent" class="mr-2" (click)="activarCargaDeNuevosDatos()">
+        Activar carga de nuevos datos
+      </button>
+      <mat-chip-list >
+        <mat-chip color="primary" selected>Pagina actual : {{ paginaActual }}</mat-chip>
+        <mat-chip color="accent" selected>Datos cargados : {{ filterService.getBlockedDiscoveries().length }}</mat-chip>
+        <mat-chip color="accent" selected>Datos filtrados : {{ filterService.getLiveDiscoveries().length }}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <div class="card-columns">
+    <div *ngFor="let discovery of filterService.getLiveDiscoveries()">
+      <app-best-custom-card [roverDiscovery]="discovery"></app-best-custom-card>
+    </div>
+  </div>
 </div>

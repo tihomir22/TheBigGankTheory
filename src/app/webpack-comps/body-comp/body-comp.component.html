@@ -1,0 +1,23 @@
+<div class="card-body p-0 bg-dark" id="contenedorCuerpo">
+  <img [src]="_discovery.img_src" alt="{{ _discovery.id }}" [ngStyle]="{ width: '100%' }" />
+  <div class="row">
+    <div class="col-6" *ngIf="_discovery.showingCamera">
+      <p>Camera info</p>
+      <div class="contenedorHijo">
+        <div *ngFor="let camInfo of objKeys(_discovery.camera)">
+          <strong>{{ camInfo + " " }}</strong
+          >{{ _discovery.camera[camInfo] }}
+        </div>
+      </div>
+    </div>
+    <div class="col-6" *ngIf="_discovery.showingRover">
+      <p>Rover info</p>
+      <div class="contenedorHijo">
+        <div *ngFor="let roverInfo of objKeys(_discovery.rover)">
+          <strong> {{ roverInfo + " " }}</strong
+          >{{ esArray(_discovery.rover[roverInfo]) ? _discovery.rover[roverInfo].length : _discovery.rover[roverInfo] }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

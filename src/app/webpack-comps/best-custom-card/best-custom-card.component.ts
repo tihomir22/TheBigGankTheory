@@ -1,6 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { FilterThisMateService } from "src/app/services/filter-this-mate.service";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 export interface PhotosNASA {
   photos: Array<RoverDiscovery>;
@@ -13,6 +11,8 @@ export interface RoverDiscovery {
   img_src: string;
   rover: any;
   sol: number;
+  showingCamera?: boolean;
+  showingRover?: boolean;
 }
 
 @Component({
@@ -21,35 +21,27 @@ export interface RoverDiscovery {
   styleUrls: ["./best-custom-card.component.scss"]
 })
 export class BestCustomCardComponent implements OnInit {
-  public objKeys = Object.keys;
+  public _discovery: RoverDiscovery;
 
-  @Output() cargaTerminada = new EventEmitter();
-
-  constructor(
-    private http: HttpClient,
-    public filterService: FilterThisMateService
-  ) {}
-
-  public showMeDaWae(item: any) {
-    item.showingCamera = !item.showingCamera;
-  }
-
-  public esArray(loQueSea: any): boolean {
-    if (loQueSea instanceof Array) {
-      return true;
-    } else {
-      return false;
+  @Input("roverDiscovery")
+  set roverDiscovery(discovery: RoverDiscovery) {
+    if (discovery) {
+      this._discovery = discovery;
     }
   }
 
-  ngOnInit() {
-    this.http
-      .get(
-        "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=WuvGIBuwjNy1OVOvZeyH1yzysvjdqgGKjnK3nHUh"
-      )
-      .subscribe((data: PhotosNASA) => {
-        this.cargaTerminada.emit();
-        this.filterService.setRoverDiscoveries(data.photos);
-      });
+  constructor() {}
+
+  public abreteSesamo(codigo: any) {
+    // se podria haber realizado este seteo perfectamente en "acciones-custom-comp"
+    // ya que este tambien tiene el puntero a _discovery, pero para verlo mejor lo hacemos
+    // con un output
+    if (codigo == "0") {
+      this._discovery.showingRover =  !this._discovery.showingRover;
+    } else if (codigo == "1") {
+      this._discovery.showingCamera =  !this._discovery.showingCamera;
+    }
   }
+
+  ngOnInit() {}
 }

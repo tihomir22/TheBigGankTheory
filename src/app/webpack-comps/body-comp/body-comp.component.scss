@@ -1,0 +1,15 @@
+#contenedorCuerpo {
+  color: white;
+  .contenedorHijo {
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+  p {
+    margin-top: 0.4vh;
+    text-align: center;
+  }
+  strong {
+    margin-right: 0.5vh;
+    margin-left: 0.5vh;
+  }
+}

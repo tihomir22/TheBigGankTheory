@@ -10,14 +10,24 @@ import {
   MatFormFieldModule,
   MatListModule,
   MatCardModule,
-  MatButtonModule
+  MatButtonModule,
+  MatChipsModule
 } from "@angular/material";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { LazyLoadImageModule, scrollPreset } from "ng-lazyload-image";
+import { HeaderCompComponent } from "./header-comp/header-comp.component";
+import { BodyCompComponent } from "./body-comp/body-comp.component";
+import { AccionesCustomCompComponent } from "./acciones-custom-comp/acciones-custom-comp.component";
 
 @NgModule({
-  declarations: [SearchersComponent, BestCustomCardComponent],
+  declarations: [
+    SearchersComponent,
+    BestCustomCardComponent,
+    HeaderCompComponent,
+    BodyCompComponent,
+    AccionesCustomCompComponent
+  ],
   imports: [
     CommonModule,
     WebpackCompsRoutingModule,
@@ -29,10 +39,11 @@ import { LazyLoadImageModule, scrollPreset } from "ng-lazyload-image";
     MatListModule,
     MatCardModule,
     MatButtonModule,
+    MatChipsModule,
     LazyLoadImageModule.forRoot({
       preset: scrollPreset
     })
   ],
-  exports: [SearchersComponent, BestCustomCardComponent]
+  exports: [SearchersComponent, BestCustomCardComponent, MatButtonModule, MatChipsModule]
 })
 export class WebpackCompsModule {}
